@@ -420,4 +420,15 @@ See [Contributing Guide](../CONTRIBUTING.md).
 
 **SmartBrain - Intelligent Security Orchestration** 🧠
 
-[Back to Documentation](../TABLE_OF_CONTENTS.md)
+---
+
+## Related Documentation
+
+- [Getting Started Guide](../getting-started.md) - Setup and first steps
+- [Architecture Overview](../audit/CYBERAI_ARCHITECTURE.md) - System design
+- [Quick Reference](../audit/CYBERAI_QUICKREF.md) - Common commands
+- [DAO Governance](../dao/README.md) - Community participation
+
+---
+
+[⬅ Back to Documentation](../TABLE_OF_CONTENTS.md) | [🏠 Home](../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

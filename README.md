@@ -94,14 +94,25 @@ cyberai health
 
 Comprehensive documentation is available in the [docs/](docs/) directory:
 
-- **[Getting Started Guide](docs/getting-started.md)** - Setup and first steps
-- **[Architecture Overview](docs/audit/CYBERAI_ARCHITECTURE.md)** - System design and components
-- **[Quick Reference](docs/audit/CYBERAI_QUICKREF.md)** - Common commands and workflows
-- **[DAO Documentation](docs/dao/README.md)** - Governance and participation
-- **[Partner Guide](docs/partners/README.md)** - Sponsorship and integration
-- **[Security Policy](SECURITY.md)** - Vulnerability reporting
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute
-- **[Full Documentation Index](TABLE_OF_CONTENTS.md)** - Complete documentation map
+### Quick Start & Guides
+- **[Getting Started Guide](docs/getting-started.md)** - Detailed setup, configuration, and first steps with examples
+- **[Quick Reference](docs/audit/CYBERAI_QUICKREF.md)** - Common commands and workflows at a glance
+- **[Full Documentation Index](TABLE_OF_CONTENTS.md)** - Complete documentation map with all resources
+
+### Core Concepts
+- **[Architecture Overview](docs/audit/CYBERAI_ARCHITECTURE.md)** - System design, components, and integration patterns
+- **[SmartBrain AI](docs/smartbrain/README.md)** - AI-powered orchestration and automation
+- **[TRIO Framework](TRIO.md)** - Product · Governance · Security overview
+
+### Governance & Community
+- **[DAO Documentation](docs/dao/README.md)** - Community governance, eligibility, and participation
+- **[Partner Guide](docs/partners/README.md)** - Sponsorship tiers and integration options
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute code, docs, and more
+
+### Policies & Security
+- **[Security Policy](SECURITY.md)** - Vulnerability reporting and security practices
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** - Community guidelines and expectations
+- **[Privacy Policy](PRIVACY.md)** - Data protection and privacy commitments
 
 ## 🏗️ Architecture
 
@@ -195,14 +206,29 @@ See [GOVERNANCE.md](GOVERNANCE.md) for detailed governance information.
 
 ## 💰 Sponsorship
 
-Support CyberAi's development through our sponsorship program:
+Support CyberAi's development through our sponsorship program and receive exclusive benefits:
 
-- 🥉 **Bronze Tier**: Recognition and support access
-- 🥈 **Silver Tier**: Priority support and early features
-- 🥇 **Gold Tier**: Custom integrations and dedicated support
-- 💎 **Platinum Tier**: Co-development and strategic partnership
+### Sponsorship Tiers
 
-See [Partnership Documentation](docs/partners/sponsorship_tiers.md) for details.
+| Tier | Monthly | Benefits |
+|------|---------|----------|
+| 🤝 **Supporter** | $100 | Logo on sponsors page, newsletter mentions |
+| 🥉 **Bronze** | $500 | + Priority support, early feature access |
+| 🥈 **Silver** | $2,000 | + Dedicated support, co-marketing |
+| 🥇 **Gold** | $5,000 | + Custom features, strategic input |
+| 💎 **Platinum** | $10,000+ | + Enterprise SLA, white-label options |
+
+**[View Full Tier Details](docs/partners/sponsorship_tiers.md)** | **[Become a Partner](docs/partners/README.md)**
+
+### Why Sponsor?
+
+- ✅ **Support Open Source Security** - Fund development of critical security infrastructure
+- ✅ **Demonstrate Leadership** - Show commitment to blockchain security
+- ✅ **Gain Visibility** - Recognition across project channels and community
+- ✅ **Access Benefits** - Priority support, early features, and custom integrations
+- ✅ **Shape the Future** - Influence on roadmap and feature development
+
+See [Partnership Documentation](docs/partners/README.md) for details on how to get started.
 
 ## 📜 License
 
@@ -254,11 +280,32 @@ CyberAi is built by the community, for the community. Special thanks to:
 
 ## 📖 Additional Resources
 
-- **[TRIO Framework](TRIO.md)**: Product · Governance · Security overview
-- **[Privacy Policy](PRIVACY.md)**: How we handle data
-- **[Data Retention](DATA_RETENTION.md)**: Data handling policies
-- **[Migration Guide](MIGRATION.md)**: Upgrading between versions
-- **[Release Process](docs/release-process.md)**: How we ship releases
+### Documentation & Guides
+- **[TRIO Framework](TRIO.md)**: Product · Governance · Security comprehensive overview
+- **[Migration Guide](MIGRATION.md)**: Upgrading between versions safely
+- **[Release Notes](RELEASE.md)**: Latest features, updates, and roadmap
+- **[Governance Model](GOVERNANCE.md)**: Decision-making and project management
+
+### Policies
+- **[Privacy Policy](PRIVACY.md)**: How we protect user data and privacy
+- **[Data Retention](DATA_RETENTION.md)**: Data storage and deletion policies
+- **[Code of Conduct](CODE_OF_CONDUCT.md)**: Community standards and expectations
+
+### External Resources
+- **[GitHub Issues](https://github.com/SMSDAO/CyberAi/issues)**: Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/SMSDAO/CyberAi/discussions)**: Community Q&A and ideas
+- **[Full Documentation](TABLE_OF_CONTENTS.md)**: Complete documentation index
+
+---
+
+## 🗺️ Navigation
+
+- **New to CyberAi?** Start with the [Getting Started Guide](docs/getting-started.md)
+- **Looking for commands?** Check the [Quick Reference](docs/audit/CYBERAI_QUICKREF.md)
+- **Want to contribute?** Read the [Contributing Guide](CONTRIBUTING.md)
+- **Need support?** Visit [GitHub Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+- **Interested in partnering?** See [Partnership Program](docs/partners/README.md)
+- **Want to participate in governance?** Explore [DAO Documentation](docs/dao/README.md)
 
 ---
 

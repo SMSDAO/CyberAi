@@ -364,8 +364,33 @@ Questions about the DAO?
 
 ---
 
+## Related Documentation
+
+- [Eligibility Criteria](eligibility.md) - Who can participate
+- [Scoring Formula](scoring.md) - How contributions are valued
+- [Claiming Process](claiming.md) - How to claim tokens
+- [Snapshot Integration](snapshot.md) - Governance voting
+- [Merkle Distribution](merkle.md) - Technical implementation
+- [Contributing Guide](../../CONTRIBUTING.md) - Start contributing
+
+---
+
+## Questions?
+
+- **Eligibility**: See [eligibility.md](eligibility.md)
+- **Scoring**: See [scoring.md](scoring.md)
+- **Claiming**: See [claiming.md](claiming.md)
+- **General Questions**: [GitHub Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+- **Governance**: governance@cyberai.example
+
+---
+
 **Status**: Planning Phase
 
-**Last Updated**: 2026-01-01
+**Last Updated**: 2026-02-09
 
 **Next Review**: Q1 2026
+
+---
+
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)

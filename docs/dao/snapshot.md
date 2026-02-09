@@ -62,22 +62,67 @@ Once created, the space will be accessible at:
 - `type`: basic (yes/no/abstain)
 - `quorum`: No minimum (can be added later)
 
-#### Proposal Validation
+#### Voting Strategies
+
+Define how voting power is calculated:
 
 ```json
 {
-  "validation": {
-    "name": "basic",
-    "params": {
-      "minScore": 100
+  "strategies": [
+    {
+      "name": "erc20-balance-of",
+      "network": "1",
+      "params": {
+        "address": "[TOKEN_CONTRACT_ADDRESS]",
+        "symbol": "SCAUDIT",
+        "decimals": 18
+      }
     }
-  }
+  ]
 }
 ```
 
-**Requirements to create proposals**:
-- Minimum 100 tokens
-- Prevents spam proposals
+**How it works**:
+```javascript
+// Example: Calculate voting power
+const tokenBalance = await tokenContract.balanceOf(voterAddress);
+const votingPower = tokenBalance / (10 ** 18);
+
+console.log(`Voting power: ${votingPower} votes`);
+
+// Example with 1000 tokens:
+// Balance: 1000000000000000000000 (wei)
+// Voting power: 1000 votes
+```
+
+**Alternative strategies**:
+```json
+// Quadratic voting (reduces whale influence)
+{
+  "name": "erc20-balance-of-quadratic",
+  "params": {
+    "address": "[TOKEN_CONTRACT_ADDRESS]",
+    "symbol": "SCAUDIT",
+    "decimals": 18
+  }
+}
+
+// Delegation support
+{
+  "name": "delegation",
+  "params": {
+    "symbol": "SCAUDIT",
+    "strategies": [
+      {
+        "name": "erc20-balance-of",
+        "params": {
+          "address": "[TOKEN_CONTRACT_ADDRESS]"
+        }
+      }
+    ]
+  }
+}
+```
 
 ## Voting Strategies
 

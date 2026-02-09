@@ -566,6 +566,29 @@ function runInProductionMode() {
 
 ---
 
-**Last Updated**: 2026-01-02  
-**Version**: 1.0.0  
+**Last Updated**: 2026-02-09  
+**Version**: 2.0.0  
 **Maintainer**: SolanaRemix Team
+
+---
+
+## Related Documentation
+
+- [Getting Started Guide](../../getting-started.md) - Setup and first steps
+- [Quick Reference](CYBERAI_QUICKREF.md) - Common commands
+- [PR Merge Guide](CYBERAI_PR_MERGE_GUIDE.md) - Pull request workflow
+- [Setup Guide](cuberai-setup.md) - Detailed deployment instructions
+- [SmartBrain Documentation](../smartbrain/README.md) - AI orchestration
+
+---
+
+## See Also
+
+- **Security**: [SECURITY.md](../../SECURITY.md)
+- **Contributing**: [CONTRIBUTING.md](../../CONTRIBUTING.md)
+- **Governance**: [GOVERNANCE.md](../../GOVERNANCE.md)
+- **TRIO Framework**: [TRIO.md](../../TRIO.md)
+
+---
+
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

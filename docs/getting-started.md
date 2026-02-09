@@ -366,4 +366,16 @@ Now that you're up and running, explore more features:
 
 We're excited to have you here. If you have questions or feedback, please don't hesitate to reach out.
 
-[Back to README](../README.md) | [Full Documentation](../TABLE_OF_CONTENTS.md) | [Get Help](https://github.com/SMSDAO/CyberAi/discussions)
+---
+
+## Related Documentation
+
+- [Architecture Overview](audit/CYBERAI_ARCHITECTURE.md) - System design and components
+- [Quick Reference](audit/CYBERAI_QUICKREF.md) - Common commands
+- [SmartBrain AI](smartbrain/README.md) - AI orchestration system
+- [DAO Governance](dao/README.md) - Community governance
+- [Partnership Program](partners/README.md) - Sponsorship and collaboration
+
+---
+
+[⬅ Back to README](../README.md) | [📚 Full Documentation](../TABLE_OF_CONTENTS.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)

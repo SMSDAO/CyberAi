@@ -64,6 +64,34 @@ Support the SmartContractAudit project and receive recognition, benefits, and ea
 
 **Custom**: 1 minor feature request per year (subject to approval)
 
+**Example Integration**:
+```yaml
+# Bronze tier CI/CD integration
+name: Security Scan with Bronze Support
+
+on: [push, pull_request]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: CyberAi Security Scan
+        uses: cyberai/scan-action@v1
+        with:
+          tier: 'bronze'
+          api-key: ${{ secrets.CYBERAI_API_KEY }}
+          priority-support: true
+          
+      - name: Post Results
+        run: |
+          # Bronze tier gets priority results posting
+          curl -X POST $WEBHOOK_URL \
+            -H "X-Sponsor-Tier: Bronze" \
+            -d @scan-results.json
+```
+
 ---
 
 ### 🥈 Silver
