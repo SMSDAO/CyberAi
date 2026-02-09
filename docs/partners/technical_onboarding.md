@@ -114,7 +114,9 @@ Integrate via REST API (for enterprise partners):
 const axios = require('axios');
 
 const CYBERAI_API_KEY = process.env.CYBERAI_API_KEY;
-const CYBERAI_API_BASE = 'https://api.cyberai.network/v1';
+// Note: Replace with actual API endpoint once available
+// For development/testing, contact partners@cyberai.network for sandbox URL
+const CYBERAI_API_BASE = 'https://api.cyberai.network/v1';  // Production endpoint (placeholder)
 
 // Submit a repository for scanning
 async function scanRepository(repoUrl) {
