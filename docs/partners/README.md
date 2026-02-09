@@ -398,4 +398,4 @@ For the latest partnership information, visit our [GitHub repository](https://gi
 
 ---
 
-[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [📚 Documentation Index](../INDEX.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

@@ -393,4 +393,4 @@ Questions about the DAO?
 
 ---
 
-[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [📚 Documentation Index](../INDEX.md) | [🏠 Home](../../README.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)

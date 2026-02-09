@@ -401,16 +401,16 @@ For more information on SmartBrain:
 
 Help improve SmartBrain:
 
-- Report bugs and issues
-- Suggest new features
-- Contribute code
+- Report bugs and issues on [GitHub](https://github.com/SMSDAO/CyberAi/issues)
+- Suggest new features in [Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+- Contribute code (see our repository)
 - Improve documentation
 
-See [Contributing Guide](../CONTRIBUTING.md).
+See the [Contributing Guide](../../CONTRIBUTING.md) for more details.
 
 ## Resources
 
-- [Complete Documentation](../TABLE_OF_CONTENTS.md)
+- [Complete Documentation](../INDEX.md)
 - [Architecture Guide](../audit/CYBERAI_ARCHITECTURE.md)
 - [Getting Started](../getting-started.md)
 - [GitHub Repository](https://github.com/SMSDAO/CyberAi)
@@ -431,4 +431,4 @@ See [Contributing Guide](../CONTRIBUTING.md).
 
 ---
 
-[⬅ Back to Documentation](../TABLE_OF_CONTENTS.md) | [🏠 Home](../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+[⬅ Back to Documentation](../INDEX.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

@@ -378,4 +378,4 @@ We're excited to have you here. If you have questions or feedback, please don't 
 
 ---
 
-[⬅ Back to README](../README.md) | [📚 Full Documentation](../TABLE_OF_CONTENTS.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)
