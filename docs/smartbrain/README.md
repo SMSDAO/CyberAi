@@ -151,7 +151,7 @@ module.exports = {
 
 ### Advanced Configuration
 
-See [SmartBrain Configuration Guide](smartbrain-config.md) for advanced options.
+For more configuration options, see the examples above and customize based on your needs. The SmartBrain system is highly flexible and can be adapted to various security workflows.
 
 ## Usage
 
@@ -391,10 +391,11 @@ cyberai smartbrain orchestrate --depth quick
 
 ## Advanced Topics
 
-- [SmartBrain Architecture](smartbrain-architecture.md)
-- [Custom Bot Development](custom-bots.md)
-- [AI Model Training](ai-training.md)
-- [Performance Optimization](smartbrain-performance.md)
+For more information on SmartBrain:
+- Review the configuration examples above
+- Explore the [Architecture Overview](../audit/CYBERAI_ARCHITECTURE.md)
+- Check the [Getting Started Guide](../getting-started.md)
+- See usage examples throughout this document
 
 ## Contributing
 
@@ -409,10 +410,11 @@ See [Contributing Guide](../CONTRIBUTING.md).
 
 ## Resources
 
-- [SmartBrain API Reference](../api-reference.md#smartbrain)
-- [Comparison with Alternatives](COMPARISON.md)
-- [Example Workflows](https://github.com/SMSDAO/CyberAi-Examples)
-- [Community Forum](https://github.com/SMSDAO/CyberAi/discussions)
+- [Complete Documentation](../TABLE_OF_CONTENTS.md)
+- [Architecture Guide](../audit/CYBERAI_ARCHITECTURE.md)
+- [Getting Started](../getting-started.md)
+- [GitHub Repository](https://github.com/SMSDAO/CyberAi)
+- [Community Discussions](https://github.com/SMSDAO/CyberAi/discussions)
 
 ---
 

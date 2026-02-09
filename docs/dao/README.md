@@ -142,38 +142,149 @@ Snapshots are taken:
 
 ### 1. Start Contributing
 
-- Review [CONTRIBUTING.md](../../CONTRIBUTING.md)
-- Check open issues and PRs
-- Follow code of conduct
-- Sign commits with DCO
+Review the contributing guidelines and start making meaningful contributions:
+
+```bash
+# Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/CyberAi.git
+cd CyberAi
+
+# Create a feature branch
+git checkout -b feature/your-contribution
+
+# Make your changes and commit with DCO sign-off
+git commit -s -m "Add: Description of your contribution"
+
+# Push and create a pull request
+git push origin feature/your-contribution
+```
+
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
 
 ### 2. Track Your Contributions
 
-- Monitor your merged PRs
-- Check issue resolutions
-- Review documentation updates
-- Note security reports
+Monitor your contributions to understand your potential DAO eligibility:
+
+```bash
+# Check your merged pull requests
+# Via GitHub CLI
+gh pr list --author @me --state merged --repo SMSDAO/CyberAi
+
+# Count your contributions
+gh api repos/SMSDAO/CyberAi/contributors | \
+  jq '.[] | select(.login=="YOUR_USERNAME")'
+```
+
+Keep track of:
+- Merged PRs (check the PR number and date)
+- Issue resolutions (issues you reported that led to fixes)
+- Documentation improvements (docs PRs merged)
+- Security reports (vulnerabilities discovered and reported)
 
 ### 3. Verify Eligibility
 
-- Check [eligibility.md](eligibility.md)
-- Calculate estimated score using [scoring.md](scoring.md)
-- Wait for snapshot announcement
+Check your eligibility using the scoring formula:
+
+```javascript
+// Example eligibility calculation
+const contributions = {
+  mergedPRs: 5,        // 5 merged pull requests
+  issuesReported: 2,   // 2 quality issues reported
+  codeReviews: 3,      // 3 code reviews completed
+  securityFindings: 1  // 1 security vulnerability reported
+};
+
+// Scoring weights (see scoring.md for details)
+const weights = {
+  mergedPRs: 10,
+  issuesReported: 5,
+  codeReviews: 3,
+  securityFindings: 50
+};
+
+// Calculate score
+const score = (
+  contributions.mergedPRs * weights.mergedPRs +
+  contributions.issuesReported * weights.issuesReported +
+  contributions.codeReviews * weights.codeReviews +
+  contributions.securityFindings * weights.securityFindings
+);
+
+console.log(`Total Score: ${score} points`);
+// Output: Total Score: 126 points
+```
+
+See [eligibility.md](eligibility.md) for detailed criteria and [scoring.md](scoring.md) for the complete formula.
 
 ### 4. Claim Your Tokens
 
-When airdrop is announced:
-- Verify your inclusion in merkle tree
-- Follow [claiming.md](claiming.md) instructions
-- Submit claim transaction
-- Verify token receipt
+When airdrop is announced, follow the claiming process:
+
+```bash
+# Example claiming workflow (pseudo-code)
+# 1. Verify your inclusion in the merkle tree
+curl https://api.cyberai.network/dao/merkle/verify \
+  -d '{"address":"YOUR_WALLET_ADDRESS"}'
+
+# 2. Get your merkle proof
+curl https://api.cyberai.network/dao/merkle/proof \
+  -d '{"address":"YOUR_WALLET_ADDRESS"}' \
+  > merkle-proof.json
+
+# 3. Submit claim transaction (example for Solana)
+solana program invoke \
+  --program-id CYBERdaoXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \
+  --function claim \
+  --args merkle-proof.json
+
+# 4. Verify token receipt
+solana balance YOUR_WALLET_ADDRESS
+```
+
+See [claiming.md](claiming.md) for detailed instructions and [merkle.md](merkle.md) for technical details.
 
 ### 5. Participate in Governance
 
-- Join Snapshot space
-- Review active proposals
-- Cast your votes
-- Submit proposals (if eligible)
+Use your tokens to participate in DAO governance:
+
+```bash
+# Connect to Snapshot (example)
+# 1. Visit https://snapshot.org/#/cyberai.eth
+
+# 2. Connect your wallet (MetaMask, WalletConnect, etc.)
+
+# 3. View active proposals
+curl https://hub.snapshot.org/api/proposals \
+  -H "Content-Type: application/json" \
+  -d '{"space":"cyberai.eth"}'
+
+# 4. Cast your vote
+# Use the Snapshot UI or API to vote on active proposals
+
+# 5. Create a proposal (requires minimum token threshold)
+# Visit Snapshot UI and follow the proposal creation workflow
+```
+
+Example governance proposal structure:
+```markdown
+## Proposal Title: Add Support for New Blockchain
+
+**Summary**: This proposal requests adding support for [Blockchain Name]
+
+**Motivation**: [Explain why this is important]
+
+**Specification**: 
+- Technical requirements
+- Timeline estimate
+- Resource needs
+
+**Implementation**: [How it will be done]
+
+**Voting Options**: 
+- Yes, add support
+- No, do not add support
+- Abstain
+```
 
 ## Important Notes
 
