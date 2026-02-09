@@ -314,49 +314,201 @@ jobs:
 ## Best Practices
 
 ### 1. Always Use Dry-Run First
+
+Always test workflows in dry-run mode before production deployment:
+
 ```bash
-# In SmartContractAudit
+# Test in dry-run mode
 DRY_RUN=true ./scripts/master.sh audit
 
-# In CyberAi
-./cyberai-bot.sh --dry-run orchestrate
+# Example output:
+# [DRY-RUN] Would scan repository: example/repo
+# [DRY-RUN] Would check for secrets in: src/, config/
+# [DRY-RUN] Would analyze dependencies: package.json
+# [DRY-RUN] Would generate report: audit-report.pdf
+# ✓ Dry-run completed successfully
+
+# After verification, run in production
+DRY_RUN=false ./scripts/master.sh audit
 ```
 
 ### 2. Keep Repositories Decoupled
-- SmartContractAudit: Core security functions
-- CyberAi: Orchestration and automation
-- Clear interfaces between them
 
-### 3. Version Control
+Maintain clear separation between SmartContractAudit and CyberAi:
+
 ```bash
-# Tag releases in both repositories
-git tag -a v2026.01.01 -m "Coordinated release"
-git push origin v2026.01.01
+# Directory structure example
+/projects
+  ├── SmartContractAudit/     # Core security functions
+  │   ├── scripts/
+  │   │   ├── audit.sh
+  │   │   └── master.sh
+  │   └── README.md
+  │
+  └── CyberAi/                 # Orchestration layer
+      ├── cyberai-bot.sh
+      ├── workflows/
+      └── integrations/
+          └── smart-contract-audit/  # Reference, not copy
+              └── README.md
+
+# In CyberAi, reference SmartContractAudit
+# cyberai-bot.sh
+SMART_CONTRACT_AUDIT_PATH="../SmartContractAudit"
+source "${SMART_CONTRACT_AUDIT_PATH}/scripts/master.sh"
+```
+
+### 3. Version Control Best Practices
+
+```bash
+# Tag coordinated releases
+cd SmartContractAudit
+git tag -a v2026.02.09 -m "Security core v2026.02.09"
+git push origin v2026.02.09
+
+cd ../CyberAi
+git tag -a v2026.02.09 -m "CyberAi orchestrator v2026.02.09"
+git push origin v2026.02.09
+
+# Document version compatibility
+cat > COMPATIBILITY.md << EOF
+# Version Compatibility
+
+| CyberAi | SmartContractAudit | Status |
+|---------|-------------------|--------|
+| v2026.02.09 | v2026.02.09 | ✅ Compatible |
+| v2026.01.01 | v2026.01.01 | ✅ Compatible |
+EOF
 ```
 
 ### 4. Documentation Sync
-- Keep TRIO.md in sync between repositories
-- Cross-reference documentation
-- Maintain clear separation of concerns
+
+```bash
+# Keep TRIO.md in sync between repositories
+# scripts/sync-docs.sh
+
+#!/bin/bash
+SOURCE_REPO="../SmartContractAudit"
+TARGET_REPO="../CyberAi"
+
+# Sync key documents
+cp "${SOURCE_REPO}/TRIO.md" "${TARGET_REPO}/TRIO.md"
+cp "${SOURCE_REPO}/SECURITY.md" "${TARGET_REPO}/SECURITY.md"
+
+# Update cross-references
+sed -i 's/SmartContractAudit/CyberAi/g' "${TARGET_REPO}/TRIO.md"
+
+echo "✅ Documentation synced"
+```
 
 ## Security Considerations
 
 ### 1. No Secrets in Code
+
+Always use environment variables and never commit secrets:
+
 ```bash
-# Always use environment variables
-# Never commit .env files
+# Bad - Never do this!
+GITHUB_TOKEN="ghp_abc123xyz456"  # ❌ Hardcoded secret
+
+# Good - Use environment variables
+export GITHUB_TOKEN="${GITHUB_TOKEN}"  # ✅ From environment
+
+# Create .env file (never commit this)
+cat > .env << 'EOF'
+GITHUB_TOKEN=ghp_your_token_here
+OPENAI_API_KEY=sk-your_key_here
+DATABASE_URL=postgresql://user:pass@localhost/db
+EOF
+
+# Add to .gitignore
 echo ".env" >> .gitignore
+echo ".env.*" >> .gitignore
+echo "!.env.example" >> .gitignore
+
+# Create example file (safe to commit)
+cat > .env.example << 'EOF'
+# GitHub Configuration
+GITHUB_TOKEN=your_github_token_here
+
+# AI Configuration
+OPENAI_API_KEY=your_openai_key_here
+
+# Database
+DATABASE_URL=postgresql://localhost/cyberai
+EOF
 ```
 
-### 2. Least Privilege
-- CyberAi Bot only gets necessary permissions
-- Use GitHub App tokens with minimal scopes
-- Regular permission audits
+### 2. Least Privilege Access
+
+Grant minimal necessary permissions:
+
+```yaml
+# GitHub Actions: Minimal permissions
+name: Security Scan
+on: [push]
+
+permissions:
+  contents: read        # Read code
+  pull-requests: write  # Comment on PRs
+  statuses: write      # Update status checks
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Scan
+        run: ./scripts/master.sh audit
+```
+
+```javascript
+// API token with minimal scopes
+const tokenScopes = {
+  read: ['repo:public_repo'],     // ✅ Read public repos only
+  write: ['gist'],                 // ✅ Create gists for reports
+  admin: []                         // ❌ No admin access needed
+};
+
+// Use dedicated bot accounts
+const botUser = {
+  username: 'cyberai-bot',
+  type: 'bot',
+  permissions: 'minimal'
+};
+```
 
 ### 3. Safe Defaults
-- DRY_RUN=true by default
-- Explicit opt-in for destructive operations
-- Comprehensive logging
+
+Always default to safe, non-destructive modes:
+
+```javascript
+// Configuration defaults
+const DEFAULT_CONFIG = {
+  dryRun: true,              // ✅ Dry-run by default
+  autoFix: false,            // ✅ No automatic fixes
+  requireApproval: true,     // ✅ Human approval required
+  maxChanges: 0,             // ✅ No changes allowed
+  readOnly: true             // ✅ Read-only mode
+};
+
+// Explicit opt-in for production
+function runInProductionMode() {
+  if (!process.env.PRODUCTION_CONFIRMED) {
+    console.error('❌ PRODUCTION_CONFIRMED environment variable required');
+    process.exit(1);
+  }
+  
+  if (!process.env.HUMAN_APPROVED) {
+    console.error('❌ HUMAN_APPROVED flag required');
+    process.exit(1);
+  }
+  
+  // Only then proceed
+  config.dryRun = false;
+  config.readOnly = false;
+}
+```
 
 ## Troubleshooting
 

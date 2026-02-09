@@ -86,8 +86,19 @@ We provide a merkle tree generator script:
 
 **Usage**:
 ```bash
+# Navigate to merkle directory
 cd dao/merkle
+
+# Install dependencies (if needed)
+npm install merkletreejs keccak256
+
+# Generate merkle tree from allocations
 node generate_merkle.js ../airdrop-sample.json output.json
+
+# Output files:
+# - output.json: Complete merkle tree data
+# - merkle-root.txt: Root hash for contract
+# - merkle-proofs.json: Proofs for each address
 ```
 
 **Input Format** (`airdrop-sample.json`):
@@ -96,8 +107,165 @@ node generate_merkle.js ../airdrop-sample.json output.json
   {
     "address": "0x1234567890123456789012345678901234567890",
     "amount": "1000000000000000000000",
-    "score": 500
+    "score": 500,
+    "contributions": {
+      "prs": 5,
+      "issues": 2,
+      "reviews": 3
+    }
   },
+  {
+    "address": "0x2345678901234567890123456789012345678901",
+    "amount": "500000000000000000000",
+    "score": 250,
+    "contributions": {
+      "prs": 2,
+      "docs": 3
+    }
+  }
+]
+```
+
+**Output Format** (`output.json`):
+```json
+{
+  "merkleRoot": "0xabcdef1234567890...",
+  "totalAllocations": 1500000000000000000000,
+  "numberOfRecipients": 2,
+  "allocations": [
+    {
+      "index": 0,
+      "address": "0x1234...",
+      "amount": "1000000000000000000000",
+      "proof": [
+        "0xabc123...",
+        "0xdef456..."
+      ]
+    }
+  ]
+}
+```
+
+### Manual Merkle Tree Generation
+
+```javascript
+// Example: Generate merkle tree manually
+const { MerkleTree } = require('merkletreejs');
+const keccak256 = require('keccak256');
+const { ethers } = require('ethers');
+
+// Step 1: Prepare allocation data
+const allocations = [
+  { address: '0x1234...', amount: '1000000000000000000000' },
+  { address: '0x2345...', amount: '500000000000000000000' },
+  { address: '0x3456...', amount: '750000000000000000000' }
+];
+
+// Step 2: Create leaf nodes
+const leaves = allocations.map((allocation, index) => {
+  return ethers.utils.solidityKeccak256(
+    ['uint256', 'address', 'uint256'],
+    [index, allocation.address, allocation.amount]
+  );
+});
+
+// Step 3: Build merkle tree
+const tree = new MerkleTree(leaves, keccak256, { sortPairs: true });
+const root = tree.getRoot().toString('hex');
+
+console.log('Merkle Root:', '0x' + root);
+
+// Step 4: Generate proofs for each allocation
+allocations.forEach((allocation, index) => {
+  const leaf = leaves[index];
+  const proof = tree.getProof(leaf);
+  const hexProof = proof.map(x => '0x' + x.data.toString('hex'));
+  
+  console.log(`\nAllocation ${index}:`);
+  console.log(`Address: ${allocation.address}`);
+  console.log(`Amount: ${allocation.amount}`);
+  console.log(`Proof:`, hexProof);
+  
+  // Verify proof
+  const verified = tree.verify(proof, leaf, root);
+  console.log(`Verified: ${verified}`);
+});
+
+// Output example:
+// Merkle Root: 0xabcdef1234567890...
+// 
+// Allocation 0:
+// Address: 0x1234...
+// Amount: 1000000000000000000000
+// Proof: ['0xabc123...', '0xdef456...']
+// Verified: true
+```
+
+### Verifying Merkle Proofs
+
+```javascript
+// Verify a merkle proof on-chain (Solidity)
+function verifyProof(
+    bytes32[] memory proof,
+    bytes32 root,
+    bytes32 leaf
+) public pure returns (bool) {
+    bytes32 computedHash = leaf;
+    
+    for (uint256 i = 0; i < proof.length; i++) {
+        bytes32 proofElement = proof[i];
+        
+        if (computedHash <= proofElement) {
+            computedHash = keccak256(abi.encodePacked(computedHash, proofElement));
+        } else {
+            computedHash = keccak256(abi.encodePacked(proofElement, computedHash));
+        }
+    }
+    
+    return computedHash == root;
+}
+
+// Verify off-chain (JavaScript)
+function verifyProofOffChain(proof, root, leaf) {
+  let computedHash = leaf;
+  
+  for (let i = 0; i < proof.length; i++) {
+    const proofElement = proof[i];
+    
+    if (BigInt(computedHash) <= BigInt(proofElement)) {
+      computedHash = ethers.utils.solidityKeccak256(
+        ['bytes32', 'bytes32'],
+        [computedHash, proofElement]
+      );
+    } else {
+      computedHash = ethers.utils.solidityKeccak256(
+        ['bytes32', 'bytes32'],
+        [proofElement, computedHash]
+      );
+    }
+  }
+  
+  return computedHash === root;
+}
+
+// Example usage
+const allocation = {
+  index: 0,
+  address: '0x1234...',
+  amount: '1000000000000000000000'
+};
+
+const leaf = ethers.utils.solidityKeccak256(
+  ['uint256', 'address', 'uint256'],
+  [allocation.index, allocation.address, allocation.amount]
+);
+
+const proof = ['0xabc123...', '0xdef456...'];
+const root = '0xabcdef1234567890...';
+
+const isValid = verifyProofOffChain(proof, root, leaf);
+console.log('Proof valid:', isValid);
+```
   {
     "address": "0xabcdefabcdefabcdefabcdefabcdefabcdefabcd",
     "amount": "500000000000000000000",

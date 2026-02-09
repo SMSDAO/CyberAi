@@ -100,6 +100,159 @@ Quality of contribution affects the final score:
 - Minimal reviewer feedback
 - Good test coverage
 - Clear documentation
+- Handles common cases well
+- Follows most best practices
+
+**Standard (1.0x)**:
+- Some reviewer feedback addressed
+- Basic tests included
+- Adequate documentation
+- Solves the problem
+
+**Acceptable (0.8x)**:
+- Multiple rounds of feedback
+- Minimal testing
+- Basic or missing documentation
+- Works but could be better
+
+**Low (0.5x)**:
+- Extensive revisions needed
+- Poor code quality
+- Missing tests
+- Unclear implementation
+
+## Practical Scoring Examples
+
+### Example 1: Code Contribution
+
+**Contribution**: Implemented new smart contract auditing feature
+
+```
+Base Points: 100 (Major Feature)
+Quality: High (1.2x multiplier)
+- Comprehensive tests included
+- Well-documented API
+- Handles edge cases
+- Clean implementation
+
+Calculation: 100 × 1.2 = 120 points
+```
+
+### Example 2: Security Finding
+
+**Contribution**: Discovered and reported critical vulnerability
+
+```
+Base Points: 200 (Critical Vulnerability)
+Quality: Exceptional (1.5x multiplier)
+- Detailed reproduction steps
+- Suggested fix provided
+- Minimal impact on users
+- Followed responsible disclosure
+
+Calculation: 200 × 1.5 = 300 points
+```
+
+### Example 3: Documentation
+
+**Contribution**: Created comprehensive API documentation
+
+```
+Base Points: 40 (API Documentation)
+Quality: High (1.2x multiplier)
+- Complete examples for all endpoints
+- Clear descriptions
+- Error handling documented
+- Migration guide included
+
+Calculation: 40 × 1.2 = 48 points
+```
+
+### Example 4: Multiple Contributions
+
+**User**: alice_dev has multiple contributions in one period
+
+```
+Contribution 1: Minor Feature (50 points × 1.0) = 50 points
+Contribution 2: Bug Fix (20 points × 1.2) = 24 points
+Contribution 3: Doc Update (10 points × 1.0) = 10 points
+Contribution 4: 3 Code Reviews (3 × 15 × 1.0) = 45 points
+Contribution 5: Helpful Discussion (5 points × 1.0) = 5 points
+
+Total Score: 50 + 24 + 10 + 45 + 5 = 134 points
+```
+
+### Example 5: Quality Impact
+
+**Scenario**: Same contribution with different quality levels
+
+```
+Feature Implementation (Base: 100 points)
+
+Exceptional Quality (1.5x): 100 × 1.5 = 150 points
+High Quality (1.2x): 100 × 1.2 = 120 points
+Standard Quality (1.0x): 100 × 1.0 = 100 points
+Acceptable Quality (0.8x): 100 × 0.8 = 80 points
+Low Quality (0.5x): 100 × 0.5 = 50 points
+
+Difference: 150 - 50 = 100 points (3x difference!)
+```
+
+## Calculating Your Estimated Score
+
+Use this JavaScript snippet to estimate your score:
+
+```javascript
+// Contribution scoring calculator
+function calculateScore(contributions) {
+  let totalScore = 0;
+  
+  contributions.forEach(contribution => {
+    const { type, basePoints, quality } = contribution;
+    const qualityMultiplier = getQualityMultiplier(quality);
+    const score = basePoints * qualityMultiplier;
+    
+    console.log(`${type}: ${basePoints} × ${qualityMultiplier} = ${score}`);
+    totalScore += score;
+  });
+  
+  return totalScore;
+}
+
+function getQualityMultiplier(quality) {
+  const multipliers = {
+    'exceptional': 1.5,
+    'high': 1.2,
+    'standard': 1.0,
+    'acceptable': 0.8,
+    'low': 0.5
+  };
+  return multipliers[quality] || 1.0;
+}
+
+// Example usage
+const myContributions = [
+  { type: 'Major Feature', basePoints: 100, quality: 'high' },
+  { type: 'Bug Fix', basePoints: 20, quality: 'standard' },
+  { type: 'Code Review', basePoints: 15, quality: 'high' },
+  { type: 'Code Review', basePoints: 15, quality: 'high' },
+  { type: 'Doc Update', basePoints: 10, quality: 'standard' }
+];
+
+const totalScore = calculateScore(myContributions);
+console.log(`\nTotal Estimated Score: ${totalScore} points`);
+
+// Output:
+// Major Feature: 100 × 1.2 = 120
+// Bug Fix: 20 × 1.0 = 20
+// Code Review: 15 × 1.2 = 18
+// Code Review: 15 × 1.2 = 18
+// Doc Update: 10 × 1.0 = 10
+// 
+// Total Estimated Score: 186 points
+```
+- Good test coverage
+- Clear documentation
 - Handles common edge cases
 - Follows project standards
 

@@ -98,6 +98,92 @@ Includes:
 
 #### 6. Community Support
 
+**Requirement**: Actively helping community members
+
+Includes:
+- Answering questions in discussions
+- Helping users troubleshoot issues
+- Writing tutorials or blog posts
+- Organizing community events
+- Moderating discussions
+
+**Minimum Threshold**:
+- At least 10 helpful responses in discussions/issues
+- Demonstrated expertise and helpfulness
+- Positive community interaction
+
+### Checking Your Eligibility
+
+You can verify your eligibility using these methods:
+
+```bash
+# Check your merged pull requests
+gh pr list --author @me --state merged --repo SMSDAO/CyberAi
+
+# Count your contributions
+gh api repos/SMSDAO/CyberAi/commits \
+  --jq '.[] | select(.author.login == "YOUR_USERNAME") | .commit.message' | \
+  wc -l
+
+# View your issues
+gh issue list --author @me --repo SMSDAO/CyberAi
+
+# Check your PR reviews
+gh api repos/SMSDAO/CyberAi/pulls/reviews \
+  --jq '.[] | select(.user.login == "YOUR_USERNAME")'
+```
+
+### Eligibility Example Scenarios
+
+**Scenario 1: Code Contributor**
+```
+User: alice_dev
+Contributions:
+- 3 merged feature PRs
+- 2 bug fix PRs
+- 5 PR reviews
+Status: ✅ ELIGIBLE (meets Code Contributors criteria)
+```
+
+**Scenario 2: Documentation Specialist**
+```
+User: bob_docs
+Contributions:
+- 1 new documentation page (120 lines)
+- 3 documentation updates
+- 1 tutorial creation
+Status: ✅ ELIGIBLE (meets Documentation Contributors criteria)
+```
+
+**Scenario 3: Security Researcher**
+```
+User: charlie_sec
+Contributions:
+- 1 medium-severity vulnerability report (accepted)
+- 2 security-focused PR reviews
+Status: ✅ ELIGIBLE (meets Security Researchers criteria)
+```
+
+**Scenario 4: Community Helper**
+```
+User: diana_help
+Contributions:
+- 15 helpful discussion responses
+- 2 tutorial blog posts
+- Organized 1 community workshop
+Status: ✅ ELIGIBLE (meets Community Support criteria)
+```
+
+**Scenario 5: Ineligible Example**
+```
+User: eve_new
+Contributions:
+- 0 merged PRs
+- 1 issue created (marked as duplicate)
+- 2 discussion comments
+Status: ❌ NOT ELIGIBLE (does not meet minimum threshold)
+```
+
 **Requirement**: Active community assistance
 
 Includes:

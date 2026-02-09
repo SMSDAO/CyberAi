@@ -98,6 +98,124 @@ The interface will show:
 
 ## Detailed Instructions
 
+### Example: Claiming on Solana
+
+```bash
+# Prerequisites: Install Solana CLI and have a wallet
+solana --version
+
+# 1. Check your allocation
+curl https://api.cyberai.network/dao/allocations/YOUR_WALLET_ADDRESS
+
+# Example response:
+# {
+#   "address": "YourSolanaAddress...",
+#   "amount": "10000000000", // 10 tokens (with 9 decimals)
+#   "claimed": false,
+#   "merkleProof": ["0xabc...", "0xdef..."]
+# }
+
+# 2. Get your merkle proof
+curl https://api.cyberai.network/dao/merkle/proof/YOUR_WALLET_ADDRESS \
+  > merkle-proof.json
+
+# 3. Claim tokens (example command)
+solana program invoke \
+  --program-id CYBERdaoXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \
+  --function claim \
+  --args @merkle-proof.json
+
+# 4. Verify token receipt
+solana balance YOUR_WALLET_ADDRESS --token CYBERxxxxx
+
+# Output: 10.000000000 CYBER
+```
+
+### Example: Claiming on Ethereum
+
+```javascript
+// Using ethers.js
+const { ethers } = require('ethers');
+
+// Connect to provider
+const provider = new ethers.providers.Web3Provider(window.ethereum);
+const signer = provider.getSigner();
+
+// Contract ABI and address
+const contractAddress = '0xCYBERxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+const abi = [
+  'function claim(uint256 index, address account, uint256 amount, bytes32[] proof)',
+  'function isClaimed(uint256 index) view returns (bool)'
+];
+
+const contract = new ethers.Contract(contractAddress, abi, signer);
+
+// Your allocation data
+const allocation = {
+  index: 42,
+  account: '0xYourAddress...',
+  amount: ethers.utils.parseEther('1000'),
+  proof: [
+    '0xabc123...',
+    '0xdef456...',
+    '0x789xyz...'
+  ]
+};
+
+// Check if already claimed
+const claimed = await contract.isClaimed(allocation.index);
+if (claimed) {
+  console.log('Tokens already claimed!');
+} else {
+  // Claim tokens
+  const tx = await contract.claim(
+    allocation.index,
+    allocation.account,
+    allocation.amount,
+    allocation.proof
+  );
+  
+  console.log('Transaction hash:', tx.hash);
+  
+  // Wait for confirmation
+  await tx.wait();
+  console.log('Tokens claimed successfully!');
+}
+```
+
+### Example: Adding Token to MetaMask
+
+```javascript
+// Add CYBER token to MetaMask
+async function addTokenToMetaMask() {
+  const tokenAddress = '0xCYBERxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+  const tokenSymbol = 'CYBER';
+  const tokenDecimals = 18;
+  const tokenImage = 'https://cyberai.network/token-logo.png';
+
+  try {
+    const wasAdded = await ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: tokenAddress,
+          symbol: tokenSymbol,
+          decimals: tokenDecimals,
+          image: tokenImage,
+        },
+      },
+    });
+
+    if (wasAdded) {
+      console.log('Token added successfully!');
+    }
+  } catch (error) {
+    console.error('Failed to add token:', error);
+  }
+}
+```
+
 ### For On-Chain Claims
 
 #### Using MetaMask

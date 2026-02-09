@@ -79,6 +79,37 @@ Discover how different types of organizations leverage SmartContractAudit to enh
 - Improved platform reputation
 - Increased developer adoption
 
+**Implementation Example**:
+
+```yaml
+# Platform template: .github/workflows/platform-security.yml
+name: Platform Security Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Platform-Specific Scan
+        uses: cyberai/scan-action@v1
+        with:
+          scan-profile: 'platform-name-defaults'
+          fail-on-critical: true
+          report-format: 'json'
+          
+      - name: Upload to Platform Dashboard
+        run: |
+          curl -X POST https://platform.example/api/security-reports \
+            -H "Authorization: Bearer ${{ secrets.PLATFORM_API_KEY }}" \
+            -F "report=@./scan-results.json"
+```
+
 **Tools Used**:
 - IDE plugin integration
 - API access for real-time scanning
@@ -94,9 +125,58 @@ Discover how different types of organizations leverage SmartContractAudit to enh
 
 **Solution**:
 - Mandatory security audits for grant projects
-- SmartContractAudit as first-pass screening
+- CyberAi as first-pass screening
 - Automated compliance checking
 - Continuous monitoring post-grant
+
+**Implementation Example**:
+
+```bash
+# Grant recipient onboarding script
+#!/bin/bash
+
+# 1. Setup CyberAi for grant project
+echo "Setting up security scanning for grant project..."
+
+git clone https://github.com/SMSDAO/CyberAi.git
+cd CyberAi
+
+# 2. Configure for project
+cat > .env << EOF
+GITHUB_REPO=${GRANT_PROJECT_REPO}
+SCAN_SCHEDULE=daily
+ALERT_LEVEL=medium
+NOTIFY_EMAIL=${GRANT_RECIPIENT_EMAIL}
+EOF
+
+# 3. Run initial scan
+./scripts/master.sh audit --comprehensive
+
+# 4. Setup continuous monitoring
+cat > .github/workflows/grant-security.yml << 'YAML'
+name: Grant Security Monitoring
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily
+  push:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Security Scan
+        run: ./scripts/master.sh audit
+      - name: Report to Platform
+        run: |
+          curl -X POST https://grants.platform.example/reports \
+            -F "project_id=${PROJECT_ID}" \
+            -F "report=@./audit-report.json"
+YAML
+
+echo "✅ Security monitoring configured"
+```
 
 **Results**:
 - 95% of grant projects meet security baseline
