@@ -97,6 +97,187 @@ Run audits manually:
 
 # With specific options
 ./scripts/master.sh scan --dry-run
+
+# Quick security scan
+./scripts/master.sh health
+
+# Full comprehensive audit
+./scripts/master.sh audit --depth full
+```
+
+### Option 4: API Integration
+
+Integrate via REST API (for enterprise partners):
+
+```javascript
+// Example: CyberAi API integration
+const axios = require('axios');
+
+const CYBERAI_API_KEY = process.env.CYBERAI_API_KEY;
+// Note: Replace with actual API endpoint once available
+// For development/testing, contact partners@cyberai.network for sandbox URL
+const CYBERAI_API_BASE = 'https://api.cyberai.network/v1';  // Production endpoint (placeholder)
+
+// Submit a repository for scanning
+async function scanRepository(repoUrl) {
+  try {
+    const response = await axios.post(
+      `${CYBERAI_API_BASE}/scans`,
+      {
+        repository: repoUrl,
+        scan_type: 'full',
+        notify_on_completion: true,
+        webhook_url: 'https://your-app.com/webhooks/scan-complete'
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${CYBERAI_API_KEY}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    console.log('Scan initiated:', response.data.scan_id);
+    return response.data;
+  } catch (error) {
+    console.error('Scan failed:', error.response?.data || error.message);
+    throw error;
+  }
+}
+
+// Check scan status
+async function getScanStatus(scanId) {
+  const response = await axios.get(
+    `${CYBERAI_API_BASE}/scans/${scanId}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${CYBERAI_API_KEY}`
+      }
+    }
+  );
+  
+  return response.data;
+}
+
+// Get scan results
+async function getScanResults(scanId) {
+  const response = await axios.get(
+    `${CYBERAI_API_BASE}/scans/${scanId}/results`,
+    {
+      headers: {
+        'Authorization': `Bearer ${CYBERAI_API_KEY}`
+      }
+    }
+  );
+  
+  return response.data;
+}
+
+// Example usage
+async function runFullScan() {
+  const scan = await scanRepository('https://github.com/example/repo');
+  
+  // Poll for completion
+  let status = 'pending';
+  while (status === 'pending' || status === 'running') {
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    const scanData = await getScanStatus(scan.scan_id);
+    status = scanData.status;
+    console.log(`Scan status: ${status}`);
+  }
+  
+  // Get results
+  if (status === 'completed') {
+    const results = await getScanResults(scan.scan_id);
+    console.log('Findings:', results.findings);
+    console.log('Risk score:', results.risk_score);
+    return results;
+  }
+}
+```
+
+### Option 5: Webhook Integration
+
+Receive real-time notifications:
+
+```javascript
+// Express.js webhook handler example
+const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+app.use(express.json());
+
+// Webhook endpoint
+app.post('/webhooks/cyberai', (req, res) => {
+  // Verify webhook signature
+  const signature = req.headers['x-cyberai-signature'];
+  const payload = JSON.stringify(req.body);
+  const secret = process.env.CYBERAI_WEBHOOK_SECRET;
+  
+  const expectedSignature = crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex');
+  
+  if (signature !== expectedSignature) {
+    return res.status(401).json({ error: 'Invalid signature' });
+  }
+  
+  // Handle event
+  const event = req.body;
+  console.log('Received event:', event.type);
+  
+  switch (event.type) {
+    case 'scan.completed':
+      handleScanCompleted(event.data);
+      break;
+    case 'scan.failed':
+      handleScanFailed(event.data);
+      break;
+    case 'vulnerability.found':
+      handleVulnerabilityFound(event.data);
+      break;
+    default:
+      console.log('Unknown event type:', event.type);
+  }
+  
+  res.json({ received: true });
+});
+
+function handleScanCompleted(data) {
+  console.log(`Scan ${data.scan_id} completed`);
+  console.log(`Risk score: ${data.risk_score}/10`);
+  console.log(`Findings: ${data.findings_count}`);
+  
+  // Send notification to your team
+  if (data.risk_score > 7) {
+    sendSlackNotification({
+      channel: '#security',
+      message: `⚠️ High-risk findings detected in scan ${data.scan_id}`,
+      risk_score: data.risk_score,
+      url: data.report_url
+    });
+  }
+}
+
+function handleVulnerabilityFound(data) {
+  console.log(`Critical vulnerability found: ${data.title}`);
+  
+  // Create incident ticket
+  createJiraTicket({
+    project: 'SEC',
+    type: 'Bug',
+    priority: 'Critical',
+    summary: data.title,
+    description: data.description,
+    labels: ['security', 'cyberai']
+  });
+}
+
+app.listen(3000, () => {
+  console.log('Webhook server running on port 3000');
+});
 ```
 
 ### Option 4: API Integration (Enterprise)

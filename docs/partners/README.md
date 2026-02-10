@@ -36,7 +36,51 @@ Welcome to the SmartContractAudit Partner Program! We collaborate with organizat
 
 ### 1. Technology Partners
 
-Integrate SmartContractAudit into your platform:
+Integrate CyberAi into your platform with our APIs and SDKs:
+
+```javascript
+// Example: Integrate CyberAi security scanning into your platform
+const { CyberAiClient } = require('@cyberai/sdk');
+
+const client = new CyberAiClient({
+  apiKey: process.env.CYBERAI_API_KEY,
+  environment: 'production'
+});
+
+// Scan a repository
+async function scanRepository(repoUrl) {
+  try {
+    const scan = await client.scan.create({
+      repository: repoUrl,
+      depth: 'full',
+      features: ['secrets', 'vulnerabilities', 'dependencies']
+    });
+    
+    console.log(`Scan ID: ${scan.id}`);
+    
+    // Poll for results
+    const results = await client.scan.waitForCompletion(scan.id);
+    
+    return {
+      findings: results.findings,
+      riskScore: results.riskScore,
+      reportUrl: results.reportUrl
+    };
+  } catch (error) {
+    console.error('Scan failed:', error);
+    throw error;
+  }
+}
+
+// Use in your workflow
+scanRepository('https://github.com/example/repo')
+  .then(results => {
+    console.log(`Found ${results.findings.length} issues`);
+    console.log(`Risk Score: ${results.riskScore}/10`);
+  });
+```
+
+**Integration benefits**:
 - API access and integration support
 - White-label options (enterprise tier)
 - Custom feature development
@@ -44,9 +88,66 @@ Integrate SmartContractAudit into your platform:
 
 **Ideal for**: Development platforms, IDEs, CI/CD tools, blockchain infrastructure
 
+See [technical_onboarding.md](technical_onboarding.md) for complete API documentation.
+
 ### 2. Ecosystem Partners
 
-Collaborate on blockchain ecosystem growth:
+Collaborate on blockchain ecosystem growth with co-marketing and shared initiatives:
+
+```yaml
+# Example: GitHub Actions workflow for ecosystem partners
+name: CyberAi Security Integration
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: CyberAi Security Scan
+        uses: cyberai/security-scan-action@v1
+        with:
+          api-key: ${{ secrets.CYBERAI_API_KEY }}
+          scan-depth: 'full'
+          fail-on-critical: true
+          
+      - name: Upload Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: security-report
+          path: ./cyberai-report.pdf
+          
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const report = require('./cyberai-results.json');
+            const comment = `
+            ## CyberAi Security Scan Results
+            
+            - **Risk Score**: ${report.riskScore}/10
+            - **Findings**: ${report.findings.length}
+            - **Critical**: ${report.critical}
+            - **High**: ${report.high}
+            
+            [View Full Report](${report.reportUrl})
+            `;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+```
+
+**Partnership benefits**:
 - Cross-promotion opportunities
 - Shared community initiatives
 - Co-hosted events and workshops
@@ -56,7 +157,27 @@ Collaborate on blockchain ecosystem growth:
 
 ### 3. Sponsorship Partners
 
-Support the project financially:
+Support the project financially with various sponsorship tiers:
+
+```bash
+# Ways to sponsor CyberAi
+
+# 1. GitHub Sponsors (preferred)
+# Visit: https://github.com/sponsors/SMSDAO
+
+# 2. Direct cryptocurrency donation
+# Solana: CYBERxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Ethereum: 0xCYBERxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# 3. Corporate sponsorship
+# Contact: partners@cyberai.network
+# Includes: Logo placement, priority support, custom integrations
+
+# 4. Grant programs
+# Apply for ecosystem grants and development funds
+```
+
+**Sponsorship benefits**:
 - Logo placement and recognition
 - Access to partnership benefits
 - Tax-deductible contributions (where applicable)
@@ -64,7 +185,7 @@ Support the project financially:
 
 **Ideal for**: Companies, foundations, individual sponsors
 
-See [sponsorship_tiers.md](sponsorship_tiers.md) for detailed tiers.
+See [sponsorship_tiers.md](sponsorship_tiers.md) for detailed tiers and benefits.
 
 ### 4. Research Partners
 
@@ -250,7 +371,31 @@ We look forward to collaborating with you! 🤝
 
 ---
 
-**Last Updated**: 2026-01-01  
-**Document Version**: 1.0
+## Related Documentation
 
-For the latest partnership information, visit our [GitHub repository](https://github.com/SolanaRemix/SmartContractAudit).
+- [Sponsorship Tiers](sponsorship_tiers.md) - Detailed tier information and benefits
+- [Technical Onboarding](technical_onboarding.md) - Integration guide
+- [Use Cases](use_cases.md) - Real-world applications
+- [SLA & Support](sla_and_support.md) - Service level agreements
+- [Data Privacy](data_privacy.md) - Data handling policies
+- [Contact Information](contact.md) - How to reach us
+
+---
+
+## Quick Links
+
+- **Start a Partnership**: [Contact Us](contact.md)
+- **Technical Integration**: [Onboarding Guide](technical_onboarding.md)
+- **View Sponsorship Options**: [Tiers](sponsorship_tiers.md)
+- **See Examples**: [Use Cases](use_cases.md)
+
+---
+
+**Last Updated**: 2026-02-09  
+**Document Version**: 2.0
+
+For the latest partnership information, visit our [GitHub repository](https://github.com/SMSDAO/CyberAi).
+
+---
+
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [📚 Documentation Index](../INDEX.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

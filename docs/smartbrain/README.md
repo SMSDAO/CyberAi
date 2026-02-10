@@ -151,7 +151,7 @@ module.exports = {
 
 ### Advanced Configuration
 
-See [SmartBrain Configuration Guide](smartbrain-config.md) for advanced options.
+For more configuration options, see the examples above and customize based on your needs. The SmartBrain system is highly flexible and can be adapted to various security workflows.
 
 ## Usage
 
@@ -391,31 +391,44 @@ cyberai smartbrain orchestrate --depth quick
 
 ## Advanced Topics
 
-- [SmartBrain Architecture](smartbrain-architecture.md)
-- [Custom Bot Development](custom-bots.md)
-- [AI Model Training](ai-training.md)
-- [Performance Optimization](smartbrain-performance.md)
+For more information on SmartBrain:
+- Review the configuration examples above
+- Explore the [Architecture Overview](../audit/CYBERAI_ARCHITECTURE.md)
+- Check the [Getting Started Guide](../getting-started.md)
+- See usage examples throughout this document
 
 ## Contributing
 
 Help improve SmartBrain:
 
-- Report bugs and issues
-- Suggest new features
-- Contribute code
+- Report bugs and issues on [GitHub](https://github.com/SMSDAO/CyberAi/issues)
+- Suggest new features in [Discussions](https://github.com/SMSDAO/CyberAi/discussions)
+- Contribute code (see our repository)
 - Improve documentation
 
-See [Contributing Guide](../CONTRIBUTING.md).
+See the [Contributing Guide](../../CONTRIBUTING.md) for more details.
 
 ## Resources
 
-- [SmartBrain API Reference](../api-reference.md#smartbrain)
-- [Comparison with Alternatives](COMPARISON.md)
-- [Example Workflows](https://github.com/SMSDAO/CyberAi-Examples)
-- [Community Forum](https://github.com/SMSDAO/CyberAi/discussions)
+- [Complete Documentation](../INDEX.md)
+- [Architecture Guide](../audit/CYBERAI_ARCHITECTURE.md)
+- [Getting Started](../getting-started.md)
+- [GitHub Repository](https://github.com/SMSDAO/CyberAi)
+- [Community Discussions](https://github.com/SMSDAO/CyberAi/discussions)
 
 ---
 
 **SmartBrain - Intelligent Security Orchestration** 🧠
 
-[Back to Documentation](../TABLE_OF_CONTENTS.md)
+---
+
+## Related Documentation
+
+- [Getting Started Guide](../getting-started.md) - Setup and first steps
+- [Architecture Overview](../audit/CYBERAI_ARCHITECTURE.md) - System design
+- [Quick Reference](../audit/CYBERAI_QUICKREF.md) - Common commands
+- [DAO Governance](../dao/README.md) - Community participation
+
+---
+
+[⬅ Back to Documentation](../INDEX.md) | [🏠 Home](../../README.md) | [💬 Discussions](https://github.com/SMSDAO/CyberAi/discussions)

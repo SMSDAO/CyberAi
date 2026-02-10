@@ -273,7 +273,7 @@ module.exports = {
 
 ### Advanced Configuration
 
-For advanced use cases, see [Configuration Reference](configuration.md).
+For more advanced use cases and detailed configuration options, see the [Architecture Overview](audit/CYBERAI_ARCHITECTURE.md) and [Setup Guide](audit/cuberai-setup.md).
 
 ## Troubleshooting
 
@@ -313,9 +313,9 @@ chmod 755 ./node_modules/.bin/cyberai
 
 If you encounter issues:
 
-1. Check the [FAQ](faq.md)
+1. Check the [README](../README.md) for common solutions
 2. Search [existing issues](https://github.com/SMSDAO/CyberAi/issues)
-3. Read the [Troubleshooting Guide](troubleshooting.md)
+3. Review the [Quick Reference](audit/CYBERAI_QUICKREF.md)
 4. Ask in [GitHub Discussions](https://github.com/SMSDAO/CyberAi/discussions)
 5. Contact support: support@cyberai.network
 
@@ -326,8 +326,8 @@ Now that you're up and running, explore more features:
 - 📖 Read the [Architecture Overview](audit/CYBERAI_ARCHITECTURE.md)
 - 🔍 Learn about [Security Best Practices](../SECURITY.md)
 - 🤝 Join the [Community](../CONTRIBUTING.md)
-- 🎓 Try our [Advanced Tutorials](tutorials/)
-- 🔧 Customize with [API Integration](api-reference.md)
+- 🔧 Learn about [SmartBrain AI](smartbrain/README.md)
+- 🏛️ Explore [DAO Governance](dao/README.md)
 
 ## Best Practices
 
@@ -354,11 +354,11 @@ Now that you're up and running, explore more features:
 
 ## Additional Resources
 
-- [Complete Documentation](TABLE_OF_CONTENTS.md)
-- [API Reference](api-reference.md)
-- [CLI Reference](cli-reference.md)
-- [GitHub Actions Guide](github-actions.md)
-- [Examples Repository](https://github.com/SMSDAO/CyberAi-Examples)
+- [Complete Documentation](../TABLE_OF_CONTENTS.md)
+- [Quick Reference](audit/CYBERAI_QUICKREF.md)
+- [Architecture Guide](audit/CYBERAI_ARCHITECTURE.md)
+- [SmartBrain Documentation](smartbrain/README.md)
+- [Examples on GitHub](https://github.com/SMSDAO/CyberAi)
 
 ---
 
@@ -366,4 +366,16 @@ Now that you're up and running, explore more features:
 
 We're excited to have you here. If you have questions or feedback, please don't hesitate to reach out.
 
-[Back to README](../README.md) | [Full Documentation](TABLE_OF_CONTENTS.md) | [Get Help](support.md)
+---
+
+## Related Documentation
+
+- [Architecture Overview](audit/CYBERAI_ARCHITECTURE.md) - System design and components
+- [Quick Reference](audit/CYBERAI_QUICKREF.md) - Common commands
+- [SmartBrain AI](smartbrain/README.md) - AI orchestration system
+- [DAO Governance](dao/README.md) - Community governance
+- [Partnership Program](partners/README.md) - Sponsorship and collaboration
+
+---
+
+[⬅ Back to Documentation](../../TABLE_OF_CONTENTS.md) | [🏠 Home](../../README.md) | [💬 Get Help](https://github.com/SMSDAO/CyberAi/discussions)
