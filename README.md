@@ -48,7 +48,7 @@ To provide cutting-edge, AI-driven security tools that make blockchain developme
 
 ### Prerequisites
 
-- Node.js 18+ or higher
+- Node.js 18+
 - Git
 - GitHub account
 - Basic understanding of smart contracts (recommended)

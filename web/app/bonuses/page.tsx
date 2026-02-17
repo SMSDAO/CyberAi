@@ -12,7 +12,8 @@ const bonusPrograms = [
     reward: "100 CYB per referral",
     description: "Invite friends and earn tokens when they complete their first audit",
     action: "Get Referral Link",
-    color: "cyan",
+    colorClass: "bg-cyan-500/20",
+    iconColorClass: "text-cyan-400",
   },
   {
     icon: Trophy,
@@ -20,7 +21,8 @@ const bonusPrograms = [
     reward: "Up to 1,000 CYB",
     description: "Complete milestones and unlock special achievement bonuses",
     action: "View Achievements",
-    color: "purple",
+    colorClass: "bg-purple-500/20",
+    iconColorClass: "text-purple-400",
   },
   {
     icon: Users,
@@ -28,7 +30,8 @@ const bonusPrograms = [
     reward: "50 CYB per vote",
     description: "Participate in governance and earn rewards for active voting",
     action: "Join DAO",
-    color: "green",
+    colorClass: "bg-green-500/20",
+    iconColorClass: "text-green-400",
   },
   {
     icon: Star,
@@ -36,7 +39,8 @@ const bonusPrograms = [
     reward: "2x multiplier",
     description: "High-quality audits receive double rewards and recognition",
     action: "Learn More",
-    color: "yellow",
+    colorClass: "bg-yellow-500/20",
+    iconColorClass: "text-yellow-400",
   },
   {
     icon: TrendingUp,
@@ -44,7 +48,8 @@ const bonusPrograms = [
     reward: "+25% bonus",
     description: "Daily login streaks grant increasing token multipliers",
     action: "Start Streak",
-    color: "blue",
+    colorClass: "bg-blue-500/20",
+    iconColorClass: "text-blue-400",
   },
   {
     icon: Zap,
@@ -52,7 +57,8 @@ const bonusPrograms = [
     reward: "500 CYB",
     description: "Limited time bonus for early platform adopters",
     action: "Claim Now",
-    color: "orange",
+    colorClass: "bg-orange-500/20",
+    iconColorClass: "text-orange-400",
   },
 ];
 
@@ -141,8 +147,8 @@ export default function BonusesPage() {
           >
             <Card glow className="h-full">
               <CardHeader>
-                <div className={`w-16 h-16 rounded-lg bg-${program.color}-500/20 flex items-center justify-center mb-4`}>
-                  <program.icon className={`w-8 h-8 text-${program.color}-400`} />
+                <div className={`w-16 h-16 rounded-lg ${program.colorClass} flex items-center justify-center mb-4`}>
+                  <program.icon className={`w-8 h-8 ${program.iconColorClass}`} />
                 </div>
                 <CardTitle glow>{program.title}</CardTitle>
                 <div className="text-2xl font-bold glow-text-accent mb-2">

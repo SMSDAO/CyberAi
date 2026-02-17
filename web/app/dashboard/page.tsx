@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Trophy, Zap, Coins, TrendingUp, Award, Star } from "lucide-react";
 import Card, { CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
-import { redirect } from "next/navigation";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();

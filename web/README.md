@@ -209,4 +209,4 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
-Built with ❤️ for Hakaton 2026
+Built with ❤️ for Hackathon 2026

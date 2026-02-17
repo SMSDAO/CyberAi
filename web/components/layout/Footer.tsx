@@ -91,7 +91,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} CyberAi. All rights reserved.
             </p>
             <p className="text-sm text-gray-400">
-              Built with ❤️ for Hakaton 2026
+              Built with ❤️ for Hackathon 2026
             </p>
           </div>
         </div>
