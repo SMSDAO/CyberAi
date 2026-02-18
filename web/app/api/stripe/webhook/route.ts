@@ -55,10 +55,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ received: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Webhook processing failed";
     console.error("Webhook error:", error);
     return NextResponse.json(
-      { error: error.message || "Webhook processing failed" },
+      { error: message },
       { status: 400 }
     );
   }
