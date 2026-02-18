@@ -27,8 +27,8 @@ Production-ready web interface for the CyberAi smart contract security platform.
 # Install dependencies
 npm install
 
-# Copy environment variables
-cp .env.example .env
+# Create a .env file and configure environment variables
+# (see the "Environment Configuration" section below)
 
 # Edit .env with your credentials
 ```
