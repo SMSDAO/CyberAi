@@ -48,10 +48,46 @@ To provide cutting-edge, AI-driven security tools that make blockchain developme
 
 ### Prerequisites
 
-- Node.js 16+ or higher
+- Node.js 18+
 - Git
 - GitHub account
 - Basic understanding of smart contracts (recommended)
+
+### Web UI Setup
+
+The CyberAi platform includes a production-ready web interface built with Next.js, TypeScript, and Tailwind CSS.
+
+```bash
+# Navigate to the web directory
+cd web
+
+# Install dependencies
+npm install
+
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your configuration:
+# - GITHUB_ID and GITHUB_SECRET for OAuth
+# - STRIPE_SECRET_KEY for payments
+# - NEXTAUTH_SECRET for authentication
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+The web UI will be available at `http://localhost:3000` with the following features:
+- 🎨 **NEO Glow Design**: Futuristic dark theme with digital glow effects
+- 🔐 **GitHub Authentication**: Sign in with your GitHub account
+- 📊 **User Dashboard**: Track your levels, earnings, and airdrop status
+- 💳 **Stripe Payments**: Subscription management and payment processing
+- 🎁 **NFT Minting**: Collect platform NFTs with special benefits
+- 📚 **Guides & Documentation**: Comprehensive platform guides
 
 ### Installation
 
@@ -90,6 +126,55 @@ cyberai report --format pdf --output report.pdf
 cyberai health
 ```
 
+## 🖥️ Web Platform
+
+### Modern Web Interface
+
+CyberAi features a production-ready web platform built with modern technologies:
+
+**Tech Stack:**
+- ⚡ Next.js 16 with App Router and TypeScript
+- 🎨 Tailwind CSS v4 with custom NEO glow theme
+- 🔐 NextAuth.js for GitHub OAuth authentication
+- 💳 Stripe integration for payments
+- 🎭 Framer Motion for animations
+- 📱 Fully responsive design
+
+**Key Features:**
+- **Landing Page**: High-conversion page with modern animations
+- **Dashboard**: User levels, earning points, and airdrop status
+- **Pricing**: Subscription tiers with Stripe checkout
+- **Bonuses**: Comprehensive reward system
+- **NFT Mint**: Platform NFT minting interface
+- **Guides**: Complete documentation and tutorials
+
+**UI Preview:**
+
+![CyberAi Web UI](web/docs/ui-preview.png)
+*NEO Glow themed interface with futuristic design elements*
+
+### Deployment
+
+**Vercel (Recommended):**
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+cd web
+vercel
+
+# Production deployment
+vercel --prod
+```
+
+**Environment Variables for Production:**
+- `NEXTAUTH_URL`: Your production URL
+- `NEXTAUTH_SECRET`: Generate with `openssl rand -base64 32`
+- `GITHUB_ID` / `GITHUB_SECRET`: GitHub OAuth app credentials
+- `STRIPE_SECRET_KEY`: Stripe secret key
+- `STRIPE_WEBHOOK_SECRET`: Stripe webhook secret
+
 ## 📚 Documentation
 
 Comprehensive documentation is available in the [docs/](docs/) directory:
@@ -124,8 +209,8 @@ CyberAi is built with a modular, scalable architecture:
 ├─────────────────────────────────────────────┤
 │                                              │
 │  ┌──────────────┐      ┌─────────────────┐ │
-│  │  SmartBrain  │──────│  Audit Engine   │ │
-│  │     Bot      │      │                 │ │
+│  │  Web UI      │──────│  SmartBrain     │ │
+│  │  (Next.js)   │      │  Bot            │ │
 │  └──────────────┘      └─────────────────┘ │
 │         │                      │            │
 │         │                      │            │
