@@ -12,9 +12,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const stripe = new Stripe(stripeSecretKey, {
-      apiVersion: "2026-01-28.clover",
-    });
+    const stripe = new Stripe(stripeSecretKey);
 
     const { priceId } = await request.json();
 
