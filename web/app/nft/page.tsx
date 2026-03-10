@@ -57,6 +57,9 @@ export default function NFTPage() {
   const [mintAmount, setMintAmount] = useState(1);
 
   const handleMint = (nftId: number) => {
+    // TODO: Replace this demo handler with real NFT minting logic before production.
+    // Integrate with your blockchain provider / smart contract or a backend API
+    // to perform the actual mint transaction and handle success/failure states.
     console.log("Minting NFT:", nftId, "Amount:", mintAmount);
     alert(`Minting ${mintAmount} NFT(s). This is a demo - blockchain integration would happen here.`);
   };
