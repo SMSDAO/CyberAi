@@ -98,9 +98,31 @@ export default function PricingPage() {
       return;
     }
 
-    // In production, this would call your Stripe checkout API
-    console.log("Initiating checkout for:", priceId);
-    alert("Stripe checkout would be initiated here. This is a demo.");
+    try {
+      const response = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ priceId }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Checkout request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data && typeof data.url === "string") {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url;
+      } else {
+        throw new Error("Invalid checkout response: missing redirect URL");
+      }
+    } catch (error) {
+      console.error("Error initiating Stripe checkout:", error);
+      alert("We were unable to start the checkout process. Please try again in a moment.");
+    }
   };
 
   return (
