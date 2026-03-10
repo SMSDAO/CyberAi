@@ -148,10 +148,9 @@ CyberAi features a production-ready web platform built with modern technologies:
 - **NFT Mint**: Platform NFT minting interface
 - **Guides**: Complete documentation and tutorials
 
-**UI Preview:**
+**UI Preview**
 
-![CyberAi Web UI](web/docs/ui-preview.png)
-*NEO Glow themed interface with futuristic design elements*
+UI preview coming soon.
 
 ### Deployment
 
