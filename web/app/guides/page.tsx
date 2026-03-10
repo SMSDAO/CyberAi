@@ -44,7 +44,7 @@ const guideCategories = [
     title: "DAO & Governance",
     description: "Community participation and voting",
     guides: [
-      { title: "DAO Overview", time: "6 min", link: "/GOVERNANCE.md" },
+      { title: "DAO Overview", time: "6 min", link: "#dao-overview" },
       { title: "Creating Proposals", time: "12 min", link: "#proposals" },
       { title: "Voting System", time: "8 min", link: "#voting" },
       { title: "Token Distribution", time: "10 min", link: "#distribution" },
