@@ -11,10 +11,11 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/", label: "Home" },
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/bonuses", label: "Bonuses" },
-  { href: "/nft", label: "NFT Mint" },
-  { href: "/guides", label: "Guides" },
+  { href: "/users", label: "Users" },
+  { href: "/admin", label: "Admin" },
+  { href: "/developer", label: "Developer" },
+  { href: "/settings", label: "Settings" },
+  { href: "/docs", label: "Docs" },
 ];
 
 export default function Header() {

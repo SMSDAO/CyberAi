@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "copilot/**"]
+  pull_request:
+    branches: ["main"]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build & Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET || 'ci-secret-placeholder' }}
+          NEXTAUTH_URL: http://localhost:3000
+          GITHUB_ID: ${{ secrets.GITHUB_ID || 'ci-placeholder' }}
+          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET || 'ci-placeholder' }}
