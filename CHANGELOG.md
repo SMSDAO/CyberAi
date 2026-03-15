@@ -26,5 +26,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Build failure**: `next build` was failing during CI due to `lib/auth.ts` throwing an uncaught exception at module evaluation time when `GITHUB_ID`/`GITHUB_SECRET` are undefined. Fixed by using `?? ""` fallback values.
 
 ### Security
-- Auth module no longer exposes environment configuration errors in server logs at startup when optional OAuth vars are absent.
+- GitHub OAuth (`GITHUB_ID`/`GITHUB_SECRET`) is **required at runtime** for the sign-in flow. The auth module now conditionally registers the GitHub provider only when both vars are present, so the application builds without secrets in CI while still surfacing a clear sign-in failure if OAuth is misconfigured at runtime.
 - `.env.example` updated to document all sensitive variables without leaking actual values.

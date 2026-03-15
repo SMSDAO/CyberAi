@@ -67,11 +67,11 @@ export default function DeveloperPage() {
       <div className="min-h-screen flex items-center justify-center">
         <Card glow className="max-w-md mx-4">
           <CardHeader>
-            <CardTitle glow>Developer Access Required</CardTitle>
+            <CardTitle glow>Sign In Required</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-400 mb-4">
-              Sign in with a developer account to access this panel.
+              Please sign in to access this panel.
             </p>
             <Button variant="glow" onClick={() => (window.location.href = "/")}>
               Go to Home
@@ -165,8 +165,8 @@ export default function DeveloperPage() {
                   <Terminal className="w-5 h-5 text-purple-400" />
                   <CardTitle className="glow-text-purple">Log Viewer</CardTitle>
                 </div>
-                <Button variant="ghost" size="sm">
-                  <RefreshCw className="w-4 h-4" />
+                <Button variant="ghost" size="sm" aria-label="Refresh logs">
+                  <RefreshCw className="w-4 h-4" aria-hidden="true" />
                 </Button>
               </div>
             </CardHeader>

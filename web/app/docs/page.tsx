@@ -97,39 +97,45 @@ export default function DocsPage() {
 
       {/* Doc Sections Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {docSections.map((section, index) => (
-          <motion.div
-            key={section.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
-          >
-            <Card glow className="h-full hover:scale-[1.02] transition-transform cursor-pointer">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center">
-                    <section.icon className={`w-5 h-5 ${section.color}`} />
-                  </div>
-                  <CardTitle className={section.color} glow={false}>
-                    {section.title}
-                  </CardTitle>
-                </div>
-                <p className="text-gray-400 text-sm">{section.description}</p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-1">
-                  {section.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-gray-300">
-                      <ChevronRight className="w-3 h-3 text-cyan-500/50" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+        {docSections.map((section, index) => {
+          const sectionId = section.href.split("#")[1] ?? "";
+          return (
+            <motion.div
+              key={section.title}
+              id={sectionId}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <Link href={section.href} className="block h-full">
+                <Card glow className="h-full hover:scale-[1.02] transition-transform">
+                  <CardHeader>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center">
+                        <section.icon className={`w-5 h-5 ${section.color}`} />
+                      </div>
+                      <CardTitle className={section.color} glow={false}>
+                        {section.title}
+                      </CardTitle>
+                    </div>
+                    <p className="text-gray-400 text-sm">{section.description}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-1">
+                      {section.items.map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-sm text-gray-300">
+                          <ChevronRight className="w-3 h-3 text-cyan-500/50" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Environment Variables Reference */}
@@ -215,11 +221,14 @@ export default function DocsPage() {
                   <div><span className="text-cyan-400">$</span> npm install</div>
                   <div><span className="text-cyan-400">$</span> npm run dev</div>
                 </div>
-                <Link href="https://github.com/SMSDAO/CyberAi" target="_blank" rel="noopener noreferrer">
-                  <Button variant="ghost" size="sm" className="w-full">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View on GitHub
-                  </Button>
+                <Link
+                  href="https://github.com/SMSDAO/CyberAi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-full px-3 py-1.5 text-sm rounded-lg font-semibold transition-all duration-200 bg-transparent border border-cyan-500 text-cyan-400 hover:bg-cyan-500/10"
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  View on GitHub
                 </Link>
               </div>
             </div>
@@ -235,11 +244,14 @@ export default function DocsPage() {
         className="text-center"
       >
         <p className="text-gray-400 mb-4">Looking for more detailed documentation?</p>
-        <Link href="https://github.com/SMSDAO/CyberAi/tree/main/docs" target="_blank" rel="noopener noreferrer">
-          <Button variant="glow">
-            <BookOpen className="w-4 h-4 mr-2" />
-            View Full Docs on GitHub
-          </Button>
+        <Link
+          href="https://github.com/SMSDAO/CyberAi/tree/main/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-6 py-2.5 text-base rounded-lg font-semibold transition-all duration-300 bg-gradient-to-r from-cyan-500 to-purple-600 text-white hover:shadow-[0_0_30px_rgba(0,255,255,0.7)]"
+        >
+          <BookOpen className="w-4 h-4 mr-2" />
+          View Full Docs on GitHub
         </Link>
       </motion.div>
     </div>

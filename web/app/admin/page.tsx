@@ -59,11 +59,11 @@ export default function AdminPage() {
       <div className="min-h-screen flex items-center justify-center">
         <Card glow className="max-w-md mx-4">
           <CardHeader>
-            <CardTitle glow>Admin Access Required</CardTitle>
+            <CardTitle glow>Sign In Required</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-gray-400 mb-4">
-              Sign in with an admin account to access this panel.
+              Please sign in to access this panel.
             </p>
             <Button variant="glow" onClick={() => (window.location.href = "/")}>
               Go to Home

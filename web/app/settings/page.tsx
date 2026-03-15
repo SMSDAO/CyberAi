@@ -20,7 +20,7 @@ export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState("profile");
   const [emailNotifs, setEmailNotifs] = useState(true);
   const [auditAlerts, setAuditAlerts] = useState(true);
-  const [newsLetterNotifs, setNewsLetterNotifs] = useState(false);
+  const [newsletterNotifs, setNewsletterNotifs] = useState(false);
 
   if (status === "loading") {
     return (
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                   {[
                     { label: "Email Notifications", desc: "Receive important updates via email", value: emailNotifs, set: setEmailNotifs },
                     { label: "Audit Alerts", desc: "Get notified when audits complete", value: auditAlerts, set: setAuditAlerts },
-                    { label: "Newsletter", desc: "Weekly platform updates and news", value: newsLetterNotifs, set: setNewsLetterNotifs },
+                    { label: "Newsletter", desc: "Weekly platform updates and news", value: newsletterNotifs, set: setNewsletterNotifs },
                   ].map((notif) => (
                     <div
                       key={notif.label}
@@ -160,12 +160,14 @@ export default function SettingsPage() {
                         <p className="text-sm text-gray-400">{notif.desc}</p>
                       </div>
                       <button
+                        type="button"
                         onClick={() => notif.set(!notif.value)}
                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                           notif.value ? "bg-cyan-500" : "bg-slate-700"
                         }`}
                         role="switch"
                         aria-checked={notif.value}
+                        aria-label={`Toggle ${notif.label}`}
                       >
                         <span
                           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${

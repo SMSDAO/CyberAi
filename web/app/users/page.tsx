@@ -142,13 +142,14 @@ export default function UsersPage() {
                   <input
                     type="text"
                     placeholder="Search users..."
+                    aria-label="Search users"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="pl-9 pr-4 py-2 text-sm bg-slate-900/60 border border-cyan-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-colors"
                   />
                 </div>
-                <Button variant="ghost" size="sm">
-                  <Filter className="w-4 h-4" />
+                <Button variant="ghost" size="sm" aria-label="Filter users">
+                  <Filter className="w-4 h-4" aria-hidden="true" />
                 </Button>
               </div>
             </div>

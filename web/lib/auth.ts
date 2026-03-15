@@ -1,12 +1,14 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
+const githubId = process.env.GITHUB_ID;
+const githubSecret = process.env.GITHUB_SECRET;
+
 export const authOptions: NextAuthOptions = {
   providers: [
-    GithubProvider({
-      clientId: process.env.GITHUB_ID ?? "",
-      clientSecret: process.env.GITHUB_SECRET ?? "",
-    }),
+    ...(githubId && githubSecret
+      ? [GithubProvider({ clientId: githubId, clientSecret: githubSecret })]
+      : []),
   ],
   pages: {
     signIn: "/",
