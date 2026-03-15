@@ -1,13 +1,15 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
 const githubId = process.env.GITHUB_ID;
 const githubSecret = process.env.GITHUB_SECRET;
 
+export const isOAuthConfigured = !!(githubId && githubSecret);
+
 export const authOptions: NextAuthOptions = {
   providers: [
-    ...(githubId && githubSecret
-      ? [GithubProvider({ clientId: githubId, clientSecret: githubSecret })]
+    ...(isOAuthConfigured
+      ? [GithubProvider({ clientId: githubId!, clientSecret: githubSecret! })]
       : []),
   ],
   pages: {
@@ -31,5 +33,3 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
-
-export default NextAuth(authOptions);

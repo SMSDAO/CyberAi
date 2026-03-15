@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Settings, User, Bell, Shield, Palette, Globe } from "lucide-react";
 import Card, { CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
@@ -17,6 +18,7 @@ const settingsSections = [
 
 export default function SettingsPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const [activeSection, setActiveSection] = useState("profile");
   const [emailNotifs, setEmailNotifs] = useState(true);
   const [auditAlerts, setAuditAlerts] = useState(true);
@@ -39,7 +41,7 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-400 mb-4">Please sign in to manage settings.</p>
-            <Button variant="glow" onClick={() => (window.location.href = "/")}>
+            <Button variant="glow" onClick={() => router.push("/")}>
               Go to Home
             </Button>
           </CardContent>

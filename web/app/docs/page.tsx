@@ -144,7 +144,7 @@ export default function DocsPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="mb-12"
-        id="configuration"
+        id="env-vars"
       >
         <Card glow>
           <CardHeader>

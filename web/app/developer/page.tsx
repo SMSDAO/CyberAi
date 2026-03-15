@@ -1,6 +1,8 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Code2,
@@ -53,6 +55,15 @@ const levelColors: Record<string, string> = {
 
 export default function DeveloperPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const [envStatus, setEnvStatus] = useState<Record<string, boolean> | null>(null);
+
+  useEffect(() => {
+    fetch("/api/diagnostics/env")
+      .then((res) => res.json())
+      .then((data: Record<string, boolean>) => setEnvStatus(data))
+      .catch(() => setEnvStatus(null));
+  }, []);
 
   if (status === "loading") {
     return (
@@ -73,7 +84,7 @@ export default function DeveloperPage() {
             <p className="text-gray-400 mb-4">
               Please sign in to access this panel.
             </p>
-            <Button variant="glow" onClick={() => (window.location.href = "/")}>
+            <Button variant="glow" onClick={() => router.push("/")}>
               Go to Home
             </Button>
           </CardContent>
@@ -124,9 +135,9 @@ export default function DeveloperPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {apiEndpoints.map((ep, i) => (
-                    <tr
-                      key={i}
+                  {apiEndpoints.map((ep) => (
+                     <tr
+                       key={ep.path}
                       className="border-b border-slate-800 hover:bg-purple-500/5 transition-colors"
                     >
                       <td className="py-3 px-2">
@@ -172,8 +183,8 @@ export default function DeveloperPage() {
             </CardHeader>
             <CardContent>
               <div className="bg-black/40 rounded-lg p-4 font-mono text-xs space-y-2 max-h-64 overflow-y-auto">
-                {logEntries.map((log, i) => (
-                  <div key={i} className="flex gap-3">
+                {logEntries.map((log) => (
+                  <div key={`${log.time}-${log.message}`} className="flex gap-3">
                     <span className="text-gray-500">{log.time}</span>
                     <span className={`font-bold w-12 shrink-0 ${levelColors[log.level] ?? "text-gray-400"}`}>
                       {log.level}
@@ -201,9 +212,9 @@ export default function DeveloperPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {deployments.map((dep, i) => (
-                  <div
-                    key={i}
+                {deployments.map((dep) => (
+                   <div
+                     key={dep.env}
                     className="flex items-center justify-between p-3 rounded-lg bg-slate-900/40 border border-purple-500/20 hover:border-purple-500/40 transition-all"
                   >
                     <div>
@@ -252,34 +263,29 @@ export default function DeveloperPage() {
             <CardTitle className="glow-text-purple">Environment Variables</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-3">
-              {[
-                { key: "NEXTAUTH_URL", set: true },
-                { key: "NEXTAUTH_SECRET", set: true },
-                { key: "GITHUB_ID", set: true },
-                { key: "GITHUB_SECRET", set: true },
-                { key: "STRIPE_SECRET_KEY", set: false },
-                { key: "STRIPE_WEBHOOK_SECRET", set: false },
-                { key: "NEXT_PUBLIC_APP_URL", set: true },
-                { key: "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY", set: false },
-              ].map((env) => (
-                <div
-                  key={env.key}
-                  className="flex items-center justify-between p-2 rounded-lg bg-black/30 border border-slate-800 font-mono text-xs"
-                >
-                  <span className="text-gray-300">{env.key}</span>
-                  {env.set ? (
-                    <span className="text-green-400 flex items-center gap-1">
-                      <CheckCircle className="w-3 h-3" /> Set
-                    </span>
-                  ) : (
-                    <span className="text-yellow-400 flex items-center gap-1">
-                      <Clock className="w-3 h-3" /> Not set
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
+            {envStatus === null ? (
+              <p className="text-gray-400 text-sm">Loading environment status…</p>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-3">
+                {Object.entries(envStatus).map(([key, isSet]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between p-2 rounded-lg bg-black/30 border border-slate-800 font-mono text-xs"
+                  >
+                    <span className="text-gray-300">{key}</span>
+                    {isSet ? (
+                      <span className="text-green-400 flex items-center gap-1">
+                        <CheckCircle className="w-3 h-3" /> Set
+                      </span>
+                    ) : (
+                      <span className="text-yellow-400 flex items-center gap-1">
+                        <Clock className="w-3 h-3" /> Not set
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </CardContent>
         </Card>
       </motion.div>

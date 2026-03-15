@@ -19,11 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **`CHANGELOG.md`**: This file, following Keep a Changelog format.
 
 ### Changed
-- **`lib/auth.ts`**: Removed module-level `throw` on missing `GITHUB_ID`/`GITHUB_SECRET` env vars. Auth now gracefully degrades at build time using empty string fallbacks, preventing CI build failures when secrets are not available.
+- **`lib/auth.ts`**: Removed module-level `throw` on missing `GITHUB_ID`/`GITHUB_SECRET` env vars. The GitHub provider is now conditionally registered only when both vars are present, so the application builds in CI without secrets. At runtime, if vars are absent the auth route returns a 503 response instead of initialising an unconfigured NextAuth handler.
 - **Navigation** (`components/layout/Header.tsx`): Replaced previous nav links (Pricing, Bonuses, NFT Mint, Guides) with enterprise tabs (Users, Admin, Developer, Settings, Docs).
 
 ### Fixed
-- **Build failure**: `next build` was failing during CI due to `lib/auth.ts` throwing an uncaught exception at module evaluation time when `GITHUB_ID`/`GITHUB_SECRET` are undefined. Fixed by using `?? ""` fallback values.
+- **Build failure**: `next build` was failing during CI due to `lib/auth.ts` throwing an uncaught exception at module evaluation time when `GITHUB_ID`/`GITHUB_SECRET` are undefined. Fixed by conditionally registering the GitHub provider and guarding the auth route handler.
 
 ### Security
 - GitHub OAuth (`GITHUB_ID`/`GITHUB_SECRET`) is **required at runtime** for the sign-in flow. The auth module now conditionally registers the GitHub provider only when both vars are present, so the application builds without secrets in CI while still surfacing a clear sign-in failure if OAuth is misconfigured at runtime.

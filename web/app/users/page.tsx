@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Users, UserCheck, UserX, Filter, Search } from "lucide-react";
 import Card, { CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
@@ -25,6 +26,7 @@ const roleColors: Record<string, string> = {
 
 export default function UsersPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const [search, setSearch] = useState("");
 
   if (status === "loading") {
@@ -44,7 +46,7 @@ export default function UsersPage() {
           </CardHeader>
           <CardContent>
             <p className="text-gray-400 mb-4">Please sign in to view users.</p>
-            <Button variant="glow" onClick={() => (window.location.href = "/")}>
+            <Button variant="glow" onClick={() => router.push("/")}>
               Go to Home
             </Button>
           </CardContent>
@@ -78,7 +80,7 @@ export default function UsersPage() {
       </motion.div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

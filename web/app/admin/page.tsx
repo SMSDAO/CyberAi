@@ -1,6 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Users,
@@ -45,6 +46,7 @@ const roleColors: Record<string, string> = {
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   if (status === "loading") {
     return (
@@ -65,7 +67,7 @@ export default function AdminPage() {
             <p className="text-gray-400 mb-4">
               Please sign in to access this panel.
             </p>
-            <Button variant="glow" onClick={() => (window.location.href = "/")}>
+            <Button variant="glow" onClick={() => router.push("/")}>
               Go to Home
             </Button>
           </CardContent>
