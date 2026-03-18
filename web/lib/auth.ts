@@ -1,21 +1,16 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 
-const githubClientId = process.env.GITHUB_ID;
-const githubClientSecret = process.env.GITHUB_SECRET;
+const githubId = process.env.GITHUB_ID;
+const githubSecret = process.env.GITHUB_SECRET;
 
-if (!githubClientId || !githubClientSecret) {
-  throw new Error(
-    "GitHub OAuth configuration error: GITHUB_ID and GITHUB_SECRET environment variables must be set."
-  );
-}
+export const isOAuthConfigured = !!(githubId && githubSecret);
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    GithubProvider({
-      clientId: githubClientId,
-      clientSecret: githubClientSecret,
-    }),
+    ...(isOAuthConfigured
+      ? [GithubProvider({ clientId: githubId!, clientSecret: githubSecret! })]
+      : []),
   ],
   pages: {
     signIn: "/",
@@ -30,12 +25,11 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        token.id = (user as any)?.id || (user as any)?.sub || "";
+        const u = user as { id?: string; sub?: string };
+        token.id = u?.id || u?.sub || "";
       }
       return token;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
-
-export default NextAuth(authOptions);

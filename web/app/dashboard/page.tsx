@@ -187,7 +187,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="text-center mb-6">
                     <p className="text-2xl font-bold glow-text-cyan mb-2">
-                      Congratulations! You're Eligible
+                      Congratulations! You&apos;re Eligible
                     </p>
                     <p className="text-4xl font-bold text-green-400 mb-2">
                       {userData.airdropAmount} CYB
